@@ -2,8 +2,7 @@ import Types from '../../action/types';
 import ThemeFactory, {ThemeFlags} from "../../res/styles/ThemeFactory";
 
 const defaultState = {
-    theme: ThemeFactory.createTheme(ThemeFlags.Default),
-    onShowCustomThemeView: false,
+    theme: 'red'
 };
 export default function onAction(state = defaultState, action) {
     switch (action.type) {
