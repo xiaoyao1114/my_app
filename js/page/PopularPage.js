@@ -4,12 +4,15 @@ import {
     createAppContainer,
     createMaterialTopTabNavigator
 } from 'react-navigation'
-import {Platform, StyleSheet, Text, View} from 'react-native';
-
+import {FlatList, StyleSheet, Text, View} from 'react-native';
 import NavigationUtil from '../navigator/NavigationUtil'
 
+import {connect} from "react-redux";
+import actions from '../action/index'
+
+
 type Props = {};
-export default class PopularPage extends Component<Props> {
+ class PopularPage extends Component<Props> {
     constructor(props){
         super(props)
         this.tabNames = ['Java','Android','IOS','React','React Native','PHP']
@@ -48,8 +51,25 @@ export default class PopularPage extends Component<Props> {
     }
 }
 class PopularTab extends Component<Props> {
+     constructor(props){
+         super(props)
+         const {tabLabel} = this.props
+         this.storeName = tabLabel
+     }
+     componentDidMount(): void {
+         this.loadData()
+     }
+    loadData(){
+         const {onLoadPopularData} = this.props
+        const url = this.genFetchUrl(this.storeName)
+        onLoadPopularData(this.storeName,url)
+    }
+    genFetchUrl(key){
+         return URL + key + QUERY_STR
+    }
+
     render(){
-        const {tabLabel} = this.props
+
         return (
             <View style={styles.container}>
                 <Text>{tabLabel}</Text>
@@ -63,6 +83,14 @@ class PopularTab extends Component<Props> {
     }
 
 }
+const mapStateToProps = state => ({
+    popular: state.popular,
+});
+const mapDispatchToprops = dispatch => ({
+    onThemeChange: (storeName,url) => dispatch(actions.onLoadPopularData(storeName,url))
+})
+export default connect(mapStateToProps,mapDispatchToprops)(PopularPage)
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,

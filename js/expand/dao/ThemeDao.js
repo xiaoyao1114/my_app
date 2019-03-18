@@ -1,9 +1,12 @@
+/**
+ *Created by shaoli on 2019-03-17
+ */
+
 import {AsyncStorage,} from 'react-native';
 import langs from '../../res/data/langs';
 import keys from '../../res/data/keys';
 import {ThemeFlags} from "../../res/styles/ThemeFactory";
 import ThemeFactory from "../../res/styles/ThemeFactory";
-
 const THEME_KEY = 'theme_key'
 export default class ThemeDao {
 

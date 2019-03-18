@@ -1,3 +1,7 @@
+/**
+ *Created by shaoli on 2019-03-17
+ */
+
 import {
     createAppContainer,
     createStackNavigator,
